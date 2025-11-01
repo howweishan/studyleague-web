@@ -1,0 +1,8 @@
+export { default as Home } from './Home'
+export { default as TimerPage } from './Timer'
+export { default as StudyRooms } from './StudyRooms'
+export { default as Stats } from './Stats'
+export { default as Login } from './Login'
+export { default as About } from './About'
+export { default as Discussions } from './Discussions'
+export { default as Achievements } from './Achievements'
