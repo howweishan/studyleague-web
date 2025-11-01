@@ -22,7 +22,7 @@ function LeaderboardTable({
       return []
     }
 
-    return leaderboard.map((entry, index) => ({
+    const transformedData = leaderboard.map((entry, index) => ({
       rank: index + 1,
       id: entry.user_id,
       name: entry.user_name,
@@ -33,6 +33,26 @@ function LeaderboardTable({
         month: entry.total_overall || 0
       }
     }))
+
+    // Sort based on selected period (except for 'day' which uses original order)
+    if (selectedPeriod === 'week') {
+      return transformedData
+        .sort((a, b) => b.durations.week - a.durations.week)
+        .map((entry, index) => ({
+          ...entry,
+          rank: index + 1
+        }))
+    } else if (selectedPeriod === 'month') {
+      return transformedData
+        .sort((a, b) => b.durations.month - a.durations.month)
+        .map((entry, index) => ({
+          ...entry,
+          rank: index + 1
+        }))
+    }
+
+    // For 'day' period, return original order
+    return transformedData
   }
 
   const leaderboardData = transformLeaderboardData()

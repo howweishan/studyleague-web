@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Icon } from '@iconify/react'
+import { useSearchParams } from 'react-router-dom'
 
 import TimerControls from './components/TimerControls'
 import TimerProgress from './components/TimerProgress'
@@ -8,13 +9,51 @@ import TimerDisplay from './components/TimerDisplay'
 import { usePreferredDurations } from './providers/PreferredDurationProvider'
 import { useSessionHeartbeat } from './hooks/useSessionHeartbeat'
 import { useAlarmSound } from './hooks/useAlarmSound'
+import { TIMER_DURATIONS } from './constants/timer'
 
 export default function Timer() {
   const { durations } = usePreferredDurations()
+  const [searchParams] = useSearchParams()
+  
+  // Check if using a preset from StudyRooms
+  const preset = searchParams.get('preset')
+  const customDuration = searchParams.get('duration')
 
-  const [currentSelectedDuration, setCurrentSelectedDuration] = useState(durations.pomodoro)
-  const [currentSelectedShortBreak, setCurrentSelectedShortBreak] = useState(durations.shortBreak)
-  const [currentSelectedLongBreak, setCurrentSelectedLongBreak] = useState(durations.longBreak)
+  // Determine initial durations based on preset or user preferences
+  const getInitialDurations = () => {
+    if (preset === 'custom' && customDuration) {
+      return {
+        pomodoro: parseInt(customDuration),
+        shortBreak: TIMER_DURATIONS.SHORT_BREAK,
+        longBreak: TIMER_DURATIONS.LONG_BREAK
+      }
+    } else if (preset === 'pomodoro') {
+      return {
+        pomodoro: TIMER_DURATIONS.POMODORO,
+        shortBreak: TIMER_DURATIONS.SHORT_BREAK,
+        longBreak: TIMER_DURATIONS.LONG_BREAK
+      }
+    } else if (preset === 'short') {
+      return {
+        pomodoro: 900, // 15 minutes
+        shortBreak: TIMER_DURATIONS.SHORT_BREAK,
+        longBreak: TIMER_DURATIONS.LONG_BREAK
+      }
+    } else if (preset === 'long') {
+      return {
+        pomodoro: 3000, // 50 minutes
+        shortBreak: TIMER_DURATIONS.SHORT_BREAK,
+        longBreak: TIMER_DURATIONS.LONG_BREAK
+      }
+    }
+    return durations
+  }
+
+  const initialDurations = getInitialDurations()
+
+  const [currentSelectedDuration, setCurrentSelectedDuration] = useState(initialDurations.pomodoro)
+  const [currentSelectedShortBreak, setCurrentSelectedShortBreak] = useState(initialDurations.shortBreak)
+  const [currentSelectedLongBreak, setCurrentSelectedLongBreak] = useState(initialDurations.longBreak)
 
   const timer = useTimer({ 
     duration: currentSelectedDuration, 
@@ -80,11 +119,14 @@ export default function Timer() {
     weekday: 'long'
   })
   
+  // Only update durations from settings if NOT using a preset
   useEffect(() => {
-    setCurrentSelectedDuration(durations.pomodoro)
-    setCurrentSelectedShortBreak(durations.shortBreak)
-    setCurrentSelectedLongBreak(durations.longBreak)
-  }, [durations])
+    if (!preset) {
+      setCurrentSelectedDuration(durations.pomodoro)
+      setCurrentSelectedShortBreak(durations.shortBreak)
+      setCurrentSelectedLongBreak(durations.longBreak)
+    }
+  }, [durations, preset])
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center h-screen bg-linear-to-br from-orange-50 to-amber-50">

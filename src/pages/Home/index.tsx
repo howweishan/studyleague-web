@@ -83,6 +83,10 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
+		<div className="mb-8">
+			<h1 className="mb-2 text-3xl font-bold text-gray-900">Welcome!</h1>
+			<p className="text-gray-600">Hope you have a great day ahead!</p>
+      	</div>
       {/* Main Content Grid */}
       <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Today Stats Card */}
@@ -104,7 +108,7 @@ export default function Home() {
               <div className="text-orange-200">--- Anonymous</div>
             </div>
             <Link
-              className="flex items-center space-x-2 rounded-lg bg-white px-6 py-3 font-medium text-orange-500 transition-colors hover:bg-gray-50"
+              className="flex items-center space-x-2 rounded-lg bg-white px-6 py-3 font-medium text-orange-500 transition-colors hover:bg-gray-50 w-fit"
               to="/timer"
             >
               <Icon className="text-lg" icon="material-symbols:play-arrow" />
@@ -129,7 +133,7 @@ export default function Home() {
               <div className="mb-6 text-sm text-indigo-200">Remaining</div>
             </div>
             <button 
-              className="flex items-center space-x-2 rounded-lg bg-white px-6 py-3 font-medium text-indigo-600 transition-colors hover:bg-gray-50"
+              className="flex items-center space-x-2 rounded-lg bg-white px-6 py-3 font-medium text-indigo-600 transition-colors hover:bg-gray-50 w-fit"
               onClick={() => setShowTargetModal(true)}
             >
               <Icon className="text-lg" icon="material-symbols:tune" />
@@ -146,7 +150,7 @@ export default function Home() {
             Explore Open Study Rooms
           </h2>
           <Link
-            className="flex items-center space-x-2 text-sm font-medium text-orange-500 transition-colors hover:text-orange-600"
+            className="flex items-center space-x-2 text-sm font-medium text-orange-500 transition-colors hover:text-orange-600 "
             to="/study-rooms"
           >
             <span className='truncate'>View All</span>

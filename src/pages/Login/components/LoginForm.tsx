@@ -65,7 +65,7 @@ function LoginForm() {
         >
           Forgot your password?
         </Link>
-        <LoginButton isLoading={isLoading} />
+        <LoginButton isDisabled={isLoading || !email || !password || password.length<8} isLoading={isLoading} />
         <div className="text-center">
           <span className="text-sm text-gray-600">
             Don&apos;t have an account?{' '}

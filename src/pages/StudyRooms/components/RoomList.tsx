@@ -19,7 +19,7 @@ function RoomList({
 
     // Transform API rooms data for the UI
     const transformedRooms = rooms.map(room => ({
-        id: parseInt(room.id),
+        id: room.id,
         name: room.room_name,
         type: room.isPublic ? 'Public Room' : 'Private Room',
         participants: `${room.participants}/${room.max_participants}`, // Mock participant count for now
