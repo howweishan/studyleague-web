@@ -13,11 +13,12 @@ export default defineConfig({
     tailwindcss()
   ],
   server: {
-    allowedHosts: ['vite-dev.slimer.dev', '.trycloudflare.com']
+    allowedHosts: ['studyleague.slimer.dev', '.trycloudflare.com']
   },
   resolve: {
     alias: {
       '@': '/src'
     }
-  }
+  },
+  envDir: './',
 })
