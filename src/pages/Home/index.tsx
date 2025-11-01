@@ -93,7 +93,7 @@ export default function Home() {
         <div className="relative overflow-hidden rounded-2xl bg-linear-to-r from-orange-400 to-orange-500 p-6 text-white lg:col-span-2">
           <div className="relative z-10">
             <div className="mb-2 text-sm font-medium">Today Stats</div>
-            <div className="mb-4 text-5xl font-bold">
+            <div className={`mb-4 text-5xl font-bold ${statsLoading ? 'animate-pulse' : ''}`}>
               {statsLoading ? (
                 <Icon className="animate-pulse text-4xl" icon="material-symbols:more-horiz" />
               ) : (

@@ -53,7 +53,7 @@ export default function Sidebar() {
   return (
     <aside
       className={clsx(
-        'fixed z-9999 flex h-full w-3/4 flex-col border-r border-gray-300 bg-white shadow-lg md:static md:w-96!',
+        'fixed z-25 flex h-full w-3/4 flex-col border-r border-gray-300 bg-white shadow-lg md:static md:w-96!',
         navOpen ? 'left-0' : '-left-3/4 md:-left-1/2',
         'transition-left duration-300 ease-in-out'
       )}
